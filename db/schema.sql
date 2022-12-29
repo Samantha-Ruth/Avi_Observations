@@ -1,4 +1,4 @@
-DROP DATABASE IF EXISTS healthcare_db;
-CREATE DATABASE healthcare_db;
+DROP DATABASE IF EXISTS observations_db;
+CREATE DATABASE observations_db;
 
-USE healthcare_db; 
+USE observations_db; 

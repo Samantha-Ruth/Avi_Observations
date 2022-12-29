@@ -18,17 +18,10 @@ Comment.init(
                 len: [1]
             }
         },
-        provider_id: {
+        observer_id: {
             type: DataTypes.INTEGER,
             references: {
-                model: 'provider',
-                key: 'id'
-            }
-        },
-        services_id: {
-            type: DataTypes.INTEGER,
-            references: {
-                model: 'services',
+                model: 'observer',
                 key: 'id'
             }
         }
