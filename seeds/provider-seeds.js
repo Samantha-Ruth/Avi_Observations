@@ -1,9 +1,9 @@
-const { Provider } = require('../models');
+const { Observer } = require('../models');
 
-const providerData = [
+const observerData = [
   {
-    provider_name: 'Denver Health',
-    provider_url: 'denverhealth.com',
+    observer_name: 'Denver Health',
+    observer_url: 'denverhealth.com',
     email: 'denver@denver.com',
     password: 'UofD', 
     address: '777 Bannock St',
@@ -13,8 +13,8 @@ const providerData = [
     specialization: 'Emergency Medical'
   },
   {
-    provider_name: 'Lenox Hill Hospital',
-    provider_url: 'lenoxhill.northwell.edu',
+    observer_name: 'Lenox Hill Hospital',
+    observer_url: 'lenoxhill.northwell.edu',
     email: 'LenoxHill@email.com',
     password: 'Lenox',
     address: '100 E 77th St',
@@ -24,6 +24,6 @@ const providerData = [
     specialization: 'Ear, Nose, Throat'
   }
 ]
-const seedProviderData = () => Provider.bulkCreate(providerData);
+const seedObserverData = () => Observer.bulkCreate(observerData);
 
-module.exports = seedProviderData;
+module.exports = seedObserverData;

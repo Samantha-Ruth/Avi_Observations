@@ -1,29 +1,29 @@
 <article>
     <a href="/dashboard"> &larr; Back to dashboard</a>
     <h2>
-        Edit Service
+        Edit Observation
     </h2>
-    <form class="edit-services-form">
-        <p>Name of Service</p>
+    <form class="edit-observations-form">
+        <p>Name of observations</p>
         <div>
-            <input name="service_name" type="text" value="{{services.service_name}}" />
+            <input name="observations_name" type="text" value="{{observations.observations_name}}" />
         </div>
-        <p>Service Type</p>
+        <p>observations Type</p>
         <div>
-            <input name="service_category" type="text" value="{{services.service_category}}" />
+            <input name="observations_category" type="text" value="{{observations.observations_category}}" />
         </div>
         <p>Cost</p>
         <div>
-            <input name="cost" type="text" value="{{services.cost}}" />
+            <input name="cost" type="text" value="{{observations.cost}}" />
         </div>
         <div>
-            created on {{format_date services.created_at}}
+            created on {{format_date observations.created_at}}
             |
-            <a href="/services/{{services.id}}">{{services.comments.length}} {{format_plural "note"
-                provider.comments.length}}</a>
+            <a href="/observations/{{observations.id}}">{{observations.comments.length}} {{format_plural "note"
+                observer.comments.length}}</a>
         </div>
-        <button type="submit">Save service</button>
-        <button type="button" class="delete-services-btn">Delete service</button>
+        <button type="submit">Save observations</button>
+        <button type="button" class="delete-observations-btn">Delete observations</button>
     </form>
 </article>
 
@@ -37,8 +37,8 @@
     </div>
 </form>
 
-{{> comments services.comments}}
+{{> comments observations.comments}}
 
-<script src="/javascript/edit-services.js"></script>
-<script src="/javascript/delete-services.js"></script>
+<script src="/javascript/edit-observations.js"></script>
+<script src="/javascript/delete-observations.js"></script>
 <script src="/javascript/comment.js"></script>

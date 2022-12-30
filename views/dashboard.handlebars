@@ -1,35 +1,35 @@
 <section>
-    <h2>Share Service Information</h2>
+    <h2>Share observations Information</h2>
 
-    <form class="new-service-form">
+    <form class="new-observations-form">
         <div>
-            <label for="service_name">Name of Service</label>
-            <input type="text" id="service_name" name="service_name" />
+            <label for="observations_name">Name of observations</label>
+            <input type="text" id="observations_name" name="observations_name" />
         </div>
         <div>
-            <label for="service_category">Type of Service</label>
-            <input type="text" id="service_category" name="service_category" />
+            <label for="observations_category">Type of observations</label>
+            <input type="text" id="observations_category" name="observations_category" />
         </div>
         <div>
-            <label for="cost">Service Cost:</label>
+            <label for="cost">observations Cost:</label>
             <input type="text" id="cost" name="cost" />
         </div>
         <button type="submit">Create</button>
     </form>
 </section>
 
-{{#if services.length}}
+{{#if observations.length}}
 <section>
-    <h2>Your Services</h2>
+    <h2>Your observations</h2>
     <ol>
-        {{#each services as |service|}}
+        {{#each observations as |observations|}}
         <li>
-            {{> service-info service}}
-            <a href="/dashboard/edit/{{service.id}}" class="edit-link">Edit service</a>
+            {{> observations-info observations}}
+            <a href="/dashboard/edit/{{observations.id}}" class="edit-link">Edit observations</a>
         </li>
         {{/each}}
     </ol>
 </section>
 {{/if}}
 
-<script src="/javascript/add-services.js"></script>
+<script src="/javascript/add-observations.js"></script>
