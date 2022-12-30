@@ -1,20 +1,19 @@
 const router = require("express").Router();
 const sequelize = require("../config/connection");
-const { Services, Provider, Comment } = require("../models");
+const { Observations, Observer, Comment } = require("../models");
 const withAuth = require("../utils/auth");
 
-// Get all services entered by logged-in provider
+// Get all Observations entered by logged-in Observer
 router.get("/", (req, res) => {
   console.log(req.session);
   console.log("!!!!!!!!!!!!!!!!!!!!");
-  Services.findAll({
+  Observations.findAll({
     where: {
-      provider_id: req.session.provider_id,
+      observer_id: req.session.observer_id,
     },
     attributes: [
       "id",
-      "service_name",
-      "service_category",
+      "observations_name",
       "cost",
       "created_at",
     ],
@@ -24,24 +23,24 @@ router.get("/", (req, res) => {
         attributes: [
           "id",
           "comment_text",
-          "services_id",
-          "provider_id",
+          "observations_id",
+          "observer_id",
           "created_at",
         ],
         include: {
-          model: Provider,
-          attributes: ["provider_name", "provider_url", "address",  'address_city', 'address_state', 'address_zip'],
+          model: Observer,
+          attributes: ["observer_name", "observer_url", "address",  'address_city', 'address_state', 'address_zip'],
         },
       },
       {
-        model: Provider,
-        attributes: ["provider_name", "provider_url", "address",  'address_city', 'address_state', 'address_zip'],
+        model: Observer,
+        attributes: ["observer_name", "observer_url", "address",  'address_city', 'address_state', 'address_zip'],
       },
     ],
   })
-          .then(dbServicesData => {
-            const services = dbServicesData.map(services => services.get({ plain: true }));
-            res.render('dashboard', { services, loggedIn: true });
+          .then(dbObservationsData => {
+            const observations = dbObservationsData.map(observations => observations.get({ plain: true }));
+            res.render('dashboard', { observations, loggedIn: true });
         })
         .catch(err => {
             console.log(err);
@@ -50,35 +49,34 @@ router.get("/", (req, res) => {
 });
 
 router.get('/edit/:id', (req, res) => {
-    Services.findByPk(req.params.id, {
+    Observations.findByPk(req.params.id, {
         attributes: [
             'id',
-            'service_name',
+            'observations_name',
             'cost',
-            'service_category',
             'created_at'
         ],
         include: [
             {
                 model: Comment,
-                attributes: ['id', 'comment_text', 'services_id', 'provider_id', 'created_at'],
+                attributes: ['id', 'comment_text', 'observations_id', 'observer_id', 'created_at'],
                 include: {
-                    model: Provider,
-                    attributes: ['provider_name', 'provider_url', 'address']
+                    model: Observer,
+                    attributes: ['observer_name', 'observer_url', 'address']
                 }
             },
             {
-                model: Provider,
-                attributes: ['provider_name','address']
+                model: Observer,
+                attributes: ['observer_name','address']
             }
         ]
     })
-        .then(dbServicesData => {
-            if (dbServicesData) {
-                const services = dbServicesData.get({ plain: true });
+        .then(dbObservationsData => {
+            if (dbObservationsData) {
+                const observations = dbObservationsData.get({ plain: true });
 
-                res.render('edit-services', {
-                    services,
+                res.render('edit-observations', {
+                    observations,
                     loggedIn: true
                 });
             } else {

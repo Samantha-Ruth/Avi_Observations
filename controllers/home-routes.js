@@ -1,38 +1,38 @@
 const router = require('express').Router();
 const sequelize = require('../config/connection');
-const { Services, Provider, Comment } = require('../models');
+const { Observations, Observer, Comment } = require('../models');
 
-// get all services for homepage
+// get all Observations for homepage
 router.get('/', (req, res) => {
     console.log('======================');
-    Services.findAll({
+    Observations.findAll({
         attributes: [
             'id',
-            'service_name',
+            'observations_name',
             'cost',
-            'service_category',
+            'observations_category',
             'created_at'
         ],
         include: [
             {
                 model: Comment,
-                attributes: ['id', 'comment_text', 'services_id', 'provider_id', 'created_at'],
+                attributes: ['id', 'comment_text', 'observations_id', 'observer_id', 'created_at'],
                 include: {
-                    model: Provider,
-                    attributes: ['provider_name','provider_url','address']
+                    model: Observer,
+                    attributes: ['observer_name','observer_url','address']
                 }
             },
             {
-                model: Provider,
-                attributes: ['provider_name','provider_url','address', 'address_city', 'address_state', 'address_zip']
+                model: Observer,
+                attributes: ['observer_name','observer_url','address', 'address_city', 'address_state', 'address_zip']
             }
         ]
     })
-        .then(dbServicesData => {
-            const services = dbServicesData.map(services => services.get({ plain: true }));
+        .then(dbObservationsData => {
+            const observations = dbObservationsData.map(observations => observations.get({ plain: true }));
 
             res.render('homepage', {
-                services,
+                observations,
                 loggedIn: req.session.loggedIn
             });
         })
@@ -42,44 +42,44 @@ router.get('/', (req, res) => {
         });
 });
 
-// get single services
-router.get('/services/:id', (req, res) => {
-    Services.findOne({
+// get single observations
+router.get('/observations/:id', (req, res) => {
+    Observations.findOne({
         where: {
             id: req.params.id
         },
         attributes: [
             'id',
-            'service_name',
+            'observations_name',
             'cost',
-            'service_category',
+            'observations_category',
             'created_at'
         ],
         include: [
             {
                 model: Comment,
-                attributes: ['id', 'comment_text', 'services_id', 'provider_id', 'created_at'],
+                attributes: ['id', 'comment_text', 'observations_id', 'observer_id', 'created_at'],
                 include: {
-                    model: Provider,
-                    attributes: ['provider_name','provider_url','address', 'address_city', 'address_state', 'address_zip']
+                    model: Observer,
+                    attributes: ['observer_name','observer_url','address', 'address_city', 'address_state', 'address_zip']
                 }
             },
             {
-                model: Provider,
-                attributes: ['provider_name','provider_url','address']
+                model: Observer,
+                attributes: ['observer_name','observer_url','address']
             }
         ]
     })
-        .then(dbServicesData => {
-            if (!dbServicesData) {
-                res.status(404).json({ message: 'No services found with this id' });
+        .then(dbObservationsData => {
+            if (!dbObservationsData) {
+                res.status(404).json({ message: 'No observations found with this id' });
                 return;
             }
 
-            const services = dbServicesData.get({ plain: true });
+            const Observations = dbObservationsData.get({ plain: true });
 
-            res.render('single-services', {
-                services,
+            res.render('single-observations', {
+                observations,
                 loggedIn: req.session.loggedIn
             });
         })

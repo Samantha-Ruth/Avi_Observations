@@ -1,12 +1,12 @@
 const router = require('express').Router();
-const { Provider, Services, Comment } = require('../../models');
+const { Observer, Observations, Comment } = require('../../models');
 
-// get all providers
+// get all Observers
 router.get('/', (req, res) => {
-    Provider.findAll({
+    Observer.findAll({
         attributes: { exclude: ['password'] }
     })
-        .then(dbProviderData => res.json(dbProviderData))
+        .then(dbObserverData => res.json(dbObserverData))
         .catch(err => {
             console.log(err);
             res.status(500).json(err);
@@ -14,32 +14,32 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-    Provider.findOne({
+    Observer.findOne({
         attributes: { exclude: ['password'] },
         where: {
             id: req.params.id
         },
         include: [
             {
-                model: Services,
-                attributes: ['id', 'service_name', 'service_category', 'cost', 'created_at']
+                model: Observations,
+                attributes: ['id', 'observations_name', 'observations_category', 'cost', 'created_at']
             },
             {
                 model: Comment,
                 attributes: ['id', 'comment_text', 'created_at'],
                 include: {
-                    model: Services,
-                    attributes: ['service_name']
+                    model: Observations,
+                    attributes: ['observations_name']
                 }
             },
         ]
     })
-        .then(dbProviderData => {
-            if (!dbProviderData) {
-                res.status(404).json({ message: 'No provider found with this id' });
+        .then(dbObserverData => {
+            if (!dbObserverData) {
+                res.status(404).json({ message: 'No Observer found with this id' });
                 return;
             }
-            res.json(Provider);
+            res.json(Observer);
         })
         .catch(err => {
             console.log(err);
@@ -48,9 +48,9 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-    Provider.create({
-        provider_name: req.body.provider_name,
-        provider_url: req.body.provider_url,
+    Observer.create({
+        observer_name: req.body.observer_name,
+        observer_url: req.body.observer_url,
         email: req.body.email,
         password: req.body.password,
         address: req.body.address,
@@ -59,13 +59,13 @@ router.post('/', (req, res) => {
         address_zip: req.body.address_zip,
         specialization: req.body.specialization
     })
-        .then(dbProviderData => {
+        .then(dbObserverData => {
             req.session.save(() => {
-                req.session.provider_id = dbProviderData.id;
-                req.session.provider_name = dbProviderData.provider_name;
+                req.session.observer_id = dbObserverData.id;
+                req.session.observer_name = dbObserverData.observer_name;
                 req.session.loggedIn = true;
 
-                res.json(dbProviderData);
+                res.json(dbObserverData);
             });
         })
         .catch(err => {
@@ -75,17 +75,17 @@ router.post('/', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
-    Provider.findOne({
+    Observer.findOne({
         where: {
             email: req.body.email
         }
-    }).then(dbProviderData => {
-        if (!dbProviderData) {
-            res.status(400).json({ message: 'No provider with that email address!' });
+    }).then(dbObserverData => {
+        if (!dbObserverData) {
+            res.status(400).json({ message: 'No observer with that email address!' });
             return;
         }
 
-        const validPassword = dbProviderData.checkPassword(req.body.password);
+        const validPassword = dbObserverData.checkPassword(req.body.password);
 
         if (!validPassword) {
             res.status(400).json({ message: 'Incorrect password!' });
@@ -93,11 +93,11 @@ router.post('/login', (req, res) => {
         }
 
         req.session.save(() => {
-            req.session.provider_id = dbProviderData.id;
-            req.session.provider_name = dbProviderData.provider_name;
+            req.session.observer_id = dbObserverData.id;
+            req.session.observer_name = dbObserverData.observer_name;
             req.session.loggedIn = true;
 
-            res.json({ provider: dbProviderData, message: 'You are now logged in!' });
+            res.json({ observer: dbObserverData, message: 'You are now logged in!' });
         });
     });
 });
@@ -114,18 +114,18 @@ router.post('/logout', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-    Provider.update(req.body, {
+    Observer.update(req.body, {
         individualHooks: true,
         where: {
             id: req.params.id
         }
     })
-        .then(dbProviderData => {
-            if (!dbProviderData) {
-                res.status(404).json({ message: 'No provider found with this id' });
+        .then(dbObserverData => {
+            if (!dbObserverData) {
+                res.status(404).json({ message: 'No observer found with this id' });
                 return;
             }
-            res.json(dbProviderData);
+            res.json(dbObserverData);
         })
         .catch(err => {
             console.log(err);
@@ -134,17 +134,17 @@ router.put('/:id', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
-    Provider.destroy({
+    Observer.destroy({
         where: {
             id: req.params.id
         }
     })
-        .then(dbProviderData => {
-            if (!dbProviderData) {
-                res.status(404).json({ message: 'No provider found with this id' });
+        .then(dbObserverData => {
+            if (!dbObserverData) {
+                res.status(404).json({ message: 'No observer found with this id' });
                 return;
             }
-            res.json(dbProviderData);
+            res.json(dbObserverData);
         })
         .catch(err => {
             console.log(err);

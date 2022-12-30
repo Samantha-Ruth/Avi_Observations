@@ -14,10 +14,6 @@ Services.init(
             type: DataTypes.STRING,
             allowNull: false
         },
-        service_category: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
         cost: {
             type: DataTypes.INTEGER,
             allowNull: false,

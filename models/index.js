@@ -1,5 +1,4 @@
 const Observer = require('./Observer')
-const Category = require('./Category')
 const Observations = require('./Observations')
 const Comment = require('./Comment');
 
@@ -9,14 +8,6 @@ Observer.hasMany(Observations, {
 
 Observations.belongsTo(Observer, {
     foreignKey: 'observer_id'
-});
-
-Category.hasMany(Observations, {
-    foreignKey: 'category_id'
-});
-
-Observations.belongsTo(Category, {
-    foreignKey: 'category_id'
 });
 
 Comment.belongsTo(Observer, {
@@ -40,4 +31,4 @@ Observations.hasMany(Comment, {
 
 
 
-module.exports = { Observer, Observations, Category, Comment };
+module.exports = { Observer, Observations, Comment };

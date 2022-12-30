@@ -1,11 +1,11 @@
 const router = require('express').Router();
 
-const providerRoutes = require('./provider-routes.js');
-const servicesRoutes = require('./services-routes');
+const observerRoutes = require('./observer-routes.js');
+const observationsRoutes = require('./observations-routes');
 const commentRoutes = require('./comment-routes');
 
-router.use('/providers', providerRoutes);
-router.use('/services', servicesRoutes);
+router.use('/observers', observerRoutes);
+router.use('/observations', observationsRoutes);
 router.use('/comments', commentRoutes);
 
 module.exports = router;

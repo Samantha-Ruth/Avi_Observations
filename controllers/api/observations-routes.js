@@ -1,36 +1,35 @@
 const router = require('express').Router();
 const sequelize = require('../../config/connection');
-const { Services, Provider, Comment } = require('../../models');
+const { Observations, Observer, Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
 
-// get all services
+// get all observations
 router.get('/', (req, res) => {
     console.log('======================');
-    Services.findAll({
+    Observations.findAll({
         attributes: [
             'id',
-            'service_name',
+            'observations_name',
             'address',
-            'service_category',
             'cost',
             'created_at',
         ],
         include: [
             {
                 model: Comment,
-                attributes: ['id', 'comment_text', 'services_id', 'provider_id', 'created_at'],
+                attributes: ['id', 'comment_text', 'observations_id', 'observer_id', 'created_at'],
                 include: {
-                    model: Provider,
-                    attributes: ['provider_name']
+                    model: Observer,
+                    attributes: ['observer_name']
                 }
             },
             {
-                model: Provider,
-                attributes: ['provider_name','provider_url','address', 'address_city', 'address_state', 'address_zip']
+                model: Observer,
+                attributes: ['observer_name','observer_url','address', 'address_city', 'address_state', 'address_zip']
             }
         ]
     })
-        .then(dbServicesData => res.json(dbServicesData))
+        .then(dbObservationsData => res.json(dbObservationsData))
         .catch(err => {
             console.log(err);
             res.status(500).json(err);
@@ -38,38 +37,37 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-    Services.findOne({
+    Observations.findOne({
         where: {
             id: req.params.id
         },
         attributes: [
             'id',
-            'service_category',
             'cost',
-            'service_name',
+            'observations_name',
             'created_at'
         ],
         include: [
             {
                 model: Comment,
-                attributes: ['id', 'comment_text', 'services_id', 'provider_id', 'created_at'],
+                attributes: ['id', 'comment_text', 'observations_id', 'observer_id', 'created_at'],
                 include: {
-                    model: Provider,
-                    attributes: ['provider_name']
+                    model: Observer,
+                    attributes: ['observer_name']
                 }
             },
             {
-                model: Provider,
-                attributes: ['provider_name']
+                model: Observer,
+                attributes: ['observer_name']
             }
         ]
     })
-        .then(dbServicesData => {
-            if (!dbServicesData) {
-                res.status(404).json({ message: 'No services found with this id' });
+        .then(dbObservationsData => {
+            if (!dbObservationsData) {
+                res.status(404).json({ message: 'No observations found with this id' });
                 return;
             }
-            res.json(dbServicesData);
+            res.json(dbObservationsData);
         })
         .catch(err => {
             console.log(err);
@@ -78,13 +76,12 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', withAuth, (req, res) => {
-    Services.create({
-        service_name: req.body.service_name,
-        service_category: req.body.service_category,
+    Observations.create({
+        observations_name: req.body.observations_name,
         cost: req.body.cost,
-        provider_id: req.session.provider_id
+        observer_id: req.session.observer_id
     })
-        .then(dbServicesData => res.json(dbServicesData))
+        .then(dbObservationsData => res.json(dbObservationsData))
         .catch(err => {
             console.log(err);
             res.status(500).json(err);
@@ -92,11 +89,10 @@ router.post('/', withAuth, (req, res) => {
 });
 
 router.put('/:id', withAuth, (req, res) => {
-    Services.update(
+    Observations.update(
         {
-            service_name: req.body.service_name,
+            observations_name: req.body.observations_name,
             cost: req.body.cost,
-            service_category: req.body.service_category,
         },
         {
             where: {
@@ -104,12 +100,12 @@ router.put('/:id', withAuth, (req, res) => {
             }
         }
     )
-        .then(dbServicesData => {
-            if (!dbServicesData) {
-                res.status(404).json({ message: 'No services found with this id' });
+        .then(dbObservationsData => {
+            if (!dbObservationsData) {
+                res.status(404).json({ message: 'No observations found with this id' });
                 return;
             }
-            res.json(dbServicesData);
+            res.json(dbObservationsData);
         })
         .catch(err => {
             console.log(err);
@@ -119,17 +115,17 @@ router.put('/:id', withAuth, (req, res) => {
 
 router.delete('/:id', withAuth, (req, res) => {
     console.log('id', req.params.id);
-    Services.destroy({
+    Observations.destroy({
         where: {
             id: req.params.id
         }
     })
-        .then(dbServicesData => {
-            if (!dbServicesData) {
-                res.status(404).json({ message: 'No services found with this id' });
+        .then(dbObservationsData => {
+            if (!dbObservationsData) {
+                res.status(404).json({ message: 'No observations found with this id' });
                 return;
             }
-            res.json(dbServicesData);
+            res.json(dbObservationsData);
         })
         .catch(err => {
             console.log(err);
