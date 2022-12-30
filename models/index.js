@@ -1,43 +1,43 @@
-const Provider = require('./Provider')
+const Observer = require('./Observer')
 const Category = require('./Category')
-const Services = require('./Services')
+const Observations = require('./Observations')
 const Comment = require('./Comment');
 
-Provider.hasMany(Services, {
-    foreignKey: 'provider_id'
+Observer.hasMany(Observations, {
+    foreignKey: 'observer_id'
 });
 
-Services.belongsTo(Provider, {
-    foreignKey: 'provider_id'
+Observations.belongsTo(Observer, {
+    foreignKey: 'observer_id'
 });
 
-Category.hasMany(Services, {
+Category.hasMany(Observations, {
     foreignKey: 'category_id'
 });
 
-Services.belongsTo(Category, {
+Observations.belongsTo(Category, {
     foreignKey: 'category_id'
 });
 
-Comment.belongsTo(Provider, {
-    foreignKey: 'provider_id',
+Comment.belongsTo(Observer, {
+    foreignKey: 'observer_id',
     onDelete: 'SET NULL'
 });
 
-Comment.belongsTo(Services, {
-    foreignKey: 'services_id',
+Comment.belongsTo(Observations, {
+    foreignKey: 'observations_id',
     onDelete: 'SET NULL'
 });
 
-Provider.hasMany(Comment, {
-    foreignKey: 'provider_id',
+Observer.hasMany(Comment, {
+    foreignKey: 'observer_id',
     onDelete: 'SET NULL'
 });
 
-Services.hasMany(Comment, {
-    foreignKey: 'services_id'
+Observations.hasMany(Comment, {
+    foreignKey: 'observations_id'
 });
 
 
 
-module.exports = { Provider, Services, Category, Comment };
+module.exports = { Observer, Observations, Category, Comment };
