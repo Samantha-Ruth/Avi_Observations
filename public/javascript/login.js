@@ -5,7 +5,7 @@ async function loginFormHandler(event) {
     const password = document.querySelector('#password-login').value.trim();
 
     if (email && password) {
-        const response = await fetch('/api/providers/login', {
+        const response = await fetch('/api/observers/login', {
             method: 'post',
             body: JSON.stringify({
                 email,
@@ -25,8 +25,8 @@ async function loginFormHandler(event) {
 async function signupFormHandler(event) {
     event.preventDefault();
 
-    const provider_name = document.querySelector('#provider_name-signup').value.trim();
-    const provider_url = document.querySelector('#provider_url-signup').value.trim();
+    const observer_name = document.querySelector('#observer_name-signup').value.trim();
+    const observer_url = document.querySelector('#observer_url-signup').value.trim();
     const email = document.querySelector('#email-signup').value.trim();
     const password = document.querySelector('#password-signup').value.trim();
     const address = document.querySelector('#address-signup').value.trim();
@@ -36,12 +36,12 @@ async function signupFormHandler(event) {
     const specialization = document.querySelector('#specialization-signup').value.trim();
 
 
-    if (provider_name && email && password) {
-        const response = await fetch('/api/providers', {
+    if (observer_name && email && password) {
+        const response = await fetch('/api/observers', {
             method: 'post',
             body: JSON.stringify({
-                provider_name,
-                provider_url,
+                observer_name,
+                observer_url,
                 email,
                 password,
                 address,

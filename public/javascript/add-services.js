@@ -1,15 +1,13 @@
 async function newFormHandler(event) {
     event.preventDefault();
 
-    const service_name = document.querySelector('input[name="service_name"]').value;
-    const service_category = document.querySelector('input[name="service_category"]').value;
+    const observations_name = document.querySelector('input[name="observations_name"]').value;
     const cost = document.querySelector('input[name="cost"]').value;
 
-    const response = await fetch(`/api/services`, {
+    const response = await fetch(`/api/observationss`, {
         method: 'POST',
         body: JSON.stringify({
-            service_name,
-            service_category,
+            observations_name,
             cost
         }),
         headers: {
@@ -24,4 +22,4 @@ async function newFormHandler(event) {
     }
 }
 
-document.querySelector('.new-service-form').addEventListener('submit', newFormHandler);
+document.querySelector('.new-observations-form').addEventListener('submit', newFormHandler);

@@ -1,18 +1,16 @@
 async function editFormHandler(event) {
     event.preventDefault();
 
-    const service_name = document.querySelector('input[name="service_name"]').value.trim();
-    const service_category = document.querySelector('input[name="service_category"]').value.trim();
+    const observations_name = document.querySelector('input[name="observations_name"]').value.trim();
     const cost = document.querySelector('input[name="cost"]').value.trim();
 
     const id = window.location.toString().split('/')[
         window.location.toString().split('/').length - 1
     ];
-    const response = await fetch(`/api/services/${id}`, {
+    const response = await fetch(`/api/observations/${id}`, {
         method: 'PUT',
         body: JSON.stringify({
-            service_name,
-            service_category,
+            observations_name,
             cost
 
         }),
@@ -28,4 +26,4 @@ async function editFormHandler(event) {
     }
 }
 
-document.querySelector('.edit-services-form').addEventListener('submit', editFormHandler);
+document.querySelector('.edit-observations-form').addEventListener('submit', editFormHandler);
