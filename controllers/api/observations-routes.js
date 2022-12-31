@@ -11,7 +11,6 @@ router.get('/', (req, res) => {
             'id',
             'observations_name',
             'address',
-            'cost',
             'created_at',
         ],
         include: [
@@ -43,7 +42,6 @@ router.get('/:id', (req, res) => {
         },
         attributes: [
             'id',
-            'cost',
             'observations_name',
             'created_at'
         ],
@@ -78,7 +76,6 @@ router.get('/:id', (req, res) => {
 router.post('/', withAuth, (req, res) => {
     Observations.create({
         observations_name: req.body.observations_name,
-        cost: req.body.cost,
         observer_id: req.session.observer_id
     })
         .then(dbObservationsData => res.json(dbObservationsData))
@@ -91,8 +88,7 @@ router.post('/', withAuth, (req, res) => {
 router.put('/:id', withAuth, (req, res) => {
     Observations.update(
         {
-            observations_name: req.body.observations_name,
-            cost: req.body.cost,
+            observations_name: req.body.observations_name
         },
         {
             where: {

@@ -1,5 +1,5 @@
 {
-  "name": "healthcare-hero",
+  "name": "avi_observations",
   "version": "1.0.0",
   "engines": {
     "node": "16.x"
@@ -32,5 +32,6 @@
   "bugs": {
     "url": "https://github.com/brudter/healthcare-hero/issues"
   },
-  "homepage": "https://github.com/brudter/healthcare-hero#readme"
+  "homepage": "https://github.com/brudter/healthcare-hero#readme",
+  "devDependencies": {}
 }

@@ -9,8 +9,6 @@ router.get('/', (req, res) => {
         attributes: [
             'id',
             'observations_name',
-            'cost',
-            'observations_category',
             'created_at'
         ],
         include: [
@@ -51,8 +49,6 @@ router.get('/observations/:id', (req, res) => {
         attributes: [
             'id',
             'observations_name',
-            'cost',
-            'observations_category',
             'created_at'
         ],
         include: [

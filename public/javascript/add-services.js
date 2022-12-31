@@ -2,13 +2,11 @@ async function newFormHandler(event) {
     event.preventDefault();
 
     const observations_name = document.querySelector('input[name="observations_name"]').value;
-    const cost = document.querySelector('input[name="cost"]').value;
 
     const response = await fetch(`/api/observationss`, {
         method: 'POST',
         body: JSON.stringify({
-            observations_name,
-            cost
+            observations_name
         }),
         headers: {
             'Content-Type': 'application/json'

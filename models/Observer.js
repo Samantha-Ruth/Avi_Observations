@@ -10,7 +10,7 @@ class Observer extends Model {
 
 Observer.init(
     {
-        id: {
+        observer_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
             autoIncrement: true,

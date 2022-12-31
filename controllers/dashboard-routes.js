@@ -14,7 +14,6 @@ router.get("/", (req, res) => {
     attributes: [
       "id",
       "observations_name",
-      "cost",
       "created_at",
     ],
     include: [
@@ -53,7 +52,6 @@ router.get('/edit/:id', (req, res) => {
         attributes: [
             'id',
             'observations_name',
-            'cost',
             'created_at'
         ],
         include: [
