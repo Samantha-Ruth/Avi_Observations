@@ -3,10 +3,10 @@ async function editFormHandler(event) {
 
     const observations_name = document.querySelector('input[name="observations_name"]').value.trim();
 
-    const id = window.location.toString().split('/')[
+    const observations_id = window.location.toString().split('/')[
         window.location.toString().split('/').length - 1
     ];
-    const response = await fetch(`/api/observations/${id}`, {
+    const response = await fetch(`/api/observations/${observations_id}`, {
         method: 'PUT',
         body: JSON.stringify({
             observations_name

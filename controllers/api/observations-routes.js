@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
     console.log('======================');
     Observations.findAll({
         attributes: [
-            'id',
+            'observations_id',
             'observations_name',
             'address',
             'created_at',
@@ -38,10 +38,10 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
     Observations.findOne({
         where: {
-            id: req.params.id
+            observations_id: req.params.id
         },
         attributes: [
-            'id',
+            'observations_id',
             'observations_name',
             'created_at'
         ],
@@ -92,7 +92,7 @@ router.put('/:id', withAuth, (req, res) => {
         },
         {
             where: {
-                id: req.params.id
+                observations_id: req.params.id
             }
         }
     )
@@ -113,7 +113,7 @@ router.delete('/:id', withAuth, (req, res) => {
     console.log('id', req.params.id);
     Observations.destroy({
         where: {
-            id: req.params.id
+            observations_id: req.params.id
         }
     })
         .then(dbObservationsData => {
