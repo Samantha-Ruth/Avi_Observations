@@ -33,7 +33,7 @@ const observationsData = [
     observer_id: 2,
     },
   {
-    id: 7,
+    observations_id: 7,
     observations_name: 'CT Scan',
     observer_id: 1, 
   },
