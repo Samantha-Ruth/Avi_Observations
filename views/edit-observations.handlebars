@@ -4,26 +4,26 @@
         Edit Observation
     </h2>
     <form class="edit-observations-form">
-        <p>Name of observations</p>
+        <p>Name of Observation</p>
         <div>
             <input name="observations_name" type="text" value="{{observations.observations_name}}" />
         </div>
-        <p>observations Type</p>
-        <div>
+        <p>Observations Type</p>
+        {{!-- <div>
             <input name="observations_category" type="text" value="{{observations.observations_category}}" />
-        </div>
+        </div> --}}
         {{!-- <p>Cost</p>
         <div>
             <input name="cost" type="text" value="{{observations.cost}}" />
         </div> --}}
-        <div>
+        {{!-- <div>
             created on {{format_date observations.created_at}}
             |
             <a href="/observations/{{observations.observations_id}}">{{observations.comments.length}} {{format_plural "note"
                 observer.comments.length}}</a>
-        </div>
-        <button type="submit">Save observations</button>
-        <button type="button" class="delete-observations-btn">Delete observations</button>
+        </div> --}}
+        <button type="submit">Save observation</button>
+        <button type="button" class="delete-observations-btn">Delete observation</button>
     </form>
 </article>
 

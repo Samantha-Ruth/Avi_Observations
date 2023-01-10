@@ -22,10 +22,7 @@ Observer.init(
         },
         observer_location: {
             type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                isURL: true
-            }
+            allowNull: false
         },
         email: {
             type: DataTypes.STRING,

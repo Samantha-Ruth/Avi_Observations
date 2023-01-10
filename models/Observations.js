@@ -18,7 +18,7 @@ Observations.init(
             type: DataTypes.INTEGER,
             references: {
                 model: 'observer',
-                key: 'id'
+                key: 'observer_id'
             }
         }
     },

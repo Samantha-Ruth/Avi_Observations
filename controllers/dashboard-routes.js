@@ -12,7 +12,7 @@ router.get("/", (req, res) => {
       observer_id: req.session.observer_id,
     },
     attributes: [
-      "id",
+      "observations_id",
       "observations_name",
       "created_at",
     ],
@@ -28,12 +28,12 @@ router.get("/", (req, res) => {
         ],
         include: {
           model: Observer,
-          attributes: ["observer_name", "observer_url", "address",  'address_city', 'address_state', 'address_zip'],
+          attributes: ["observer_name", "observer_location", "email"],
         },
       },
       {
         model: Observer,
-        attributes: ["observer_name", "observer_url", "address",  'address_city', 'address_state', 'address_zip'],
+        attributes: ["observer_name", "observer_location", "email"],
       },
     ],
   })
@@ -50,7 +50,7 @@ router.get("/", (req, res) => {
 router.get('/edit/:id', (req, res) => {
     Observations.findByPk(req.params.id, {
         attributes: [
-            'id',
+            'observations_id',
             'observations_name',
             'created_at'
         ],
@@ -60,12 +60,12 @@ router.get('/edit/:id', (req, res) => {
                 attributes: ['id', 'comment_text', 'observations_id', 'observer_id', 'created_at'],
                 include: {
                     model: Observer,
-                    attributes: ['observer_name', 'observer_url', 'address']
+                    attributes: ['observer_name', 'observer_location', 'email']
                 }
             },
             {
                 model: Observer,
-                attributes: ['observer_name','address']
+                attributes: ['observer_name','email']
             }
         ]
     })

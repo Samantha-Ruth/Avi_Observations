@@ -1,6 +1,6 @@
 <article class="observations card">
     <div class="title card-header">
-        <a href=http://{{observer.observer_url}} target="_blank">{{observations_name}}</a>
+        <a href=http://{{observer.observer_location}} target="_blank">{{observations_name}}</a>
         {{log observer}}
         <div class="observer_name">
             <p>observer Name: {{observer.observer_name}}</p>
@@ -9,12 +9,11 @@
     </div>
     <div class="card-body">
         <div class="address">
-            <p>Address: {{observer.address}}, {{observer.address_city}}, {{observer.address_state}}
-                {{observer.address_zip}}</p>
+            <p>Location: {{observer.observer_location}}, {{observer.observer_location}}</p>
         </div>
 
-        <div class="observer_url">
-            <p>observer Link: <a href=http://{{observer.observer_url}} target="_blank">{{observer.observer_url}}</a></p>
+        <div class="observer_location">
+            <p>observer Link: <a href=http://{{observer.observer_location}} target="_blank">{{observer.observer_location}}</a></p>
 
         </div>
 

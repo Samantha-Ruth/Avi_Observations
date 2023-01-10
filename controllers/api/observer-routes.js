@@ -17,7 +17,7 @@ router.get('/:id', (req, res) => {
     Observer.findOne({
         attributes: { exclude: ['password'] },
         where: {
-            id: req.params.id
+            observer_id: req.params.id
         },
         include: [
             {
@@ -50,14 +50,9 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
     Observer.create({
         observer_name: req.body.observer_name,
-        observer_url: req.body.observer_url,
+        observer_location: req.body.observer_location,
         email: req.body.email,
-        password: req.body.password,
-        address: req.body.address,
-        address_city: req.body.address_city,
-        address_state: req.body.address_state,
-        address_zip: req.body.address_zip,
-        specialization: req.body.specialization
+        password: req.body.password
     })
         .then(dbObserverData => {
             req.session.save(() => {
@@ -117,7 +112,7 @@ router.put('/:id', (req, res) => {
     Observer.update(req.body, {
         individualHooks: true,
         where: {
-            id: req.params.id
+            observer_id: req.params.id
         }
     })
         .then(dbObserverData => {
@@ -136,7 +131,7 @@ router.put('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
     Observer.destroy({
         where: {
-            id: req.params.id
+            observer_id: req.params.id
         }
     })
         .then(dbObserverData => {
